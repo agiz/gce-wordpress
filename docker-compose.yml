@@ -25,6 +25,30 @@ services:
       - wordpress
     restart: always
 
+  wordpress-glury:
+    image: wordpress:${WORDPRESS_VERSION}
+    container_name: wordpress-glury
+    volumes:
+      - ./wordpress-glury:/var/www/html
+    environment:
+      - WORDPRESS_DB_NAME=wordpress-glury
+      - WORDPRESS_TABLE_PREFIX=${WORDPRESS_TABLE_PREFIX}
+      - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
+      - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+      - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
+    restart: always
+
+  nginx-glury:
+    image: nginx:${NGINX_VERSION}
+    container_name: nginx-glury
+    volumes:
+      - ./nginx-glury:/etc/nginx/conf.d
+      - ./logs/nginx-glury:/var/log/nginx
+      - ./wordpress-glury:/var/www/html
+    depends_on:
+      - wordpress-glury
+    restart: always
+
   nginxproxy:
     image: nginx:${NGINX_VERSION}
     container_name: nginxproxy
