@@ -32,7 +32,7 @@ services:
       - ./wordpress-lp1:/var/www/html
     environment:
       - WORDPRESS_DB_NAME=wakeboarder_co_1
-      - WORDPRESS_TABLE_PREFIX=${WORDPRESS_TABLE_PREFIX}
+      - WORDPRESS_TABLE_PREFIX=wp_arvzf8_
       - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
       - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
       - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
