@@ -25,6 +25,30 @@ services:
       - wordpress
     restart: always
 
+  wordpress-lp1:
+    image: wordpress:${WORDPRESS_VERSION}
+    container_name: wordpress-lp1
+    volumes:
+      - ./wordpress-lp1:/var/www/html
+    environment:
+      - WORDPRESS_DB_NAME=wakeboarder_co_1
+      - WORDPRESS_TABLE_PREFIX=${WORDPRESS_TABLE_PREFIX}
+      - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
+      - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+      - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
+    restart: always
+
+  nginx-lp1:
+    image: nginx:${NGINX_VERSION}
+    container_name: nginx-lp1
+    volumes:
+      - ./nginx-lp1:/etc/nginx/conf.d
+      - ./logs/nginx-lp1:/var/log/nginx
+      - ./wordpress-lp1:/var/www/html
+    depends_on:
+      - wordpress-lp1
+    restart: always
+
   wordpress-glury:
     image: wordpress:${WORDPRESS_VERSION}
     container_name: wordpress-glury
